@@ -9,17 +9,17 @@ def do_translate(json_path_from, src_language, dest_language):
     output_dic = {}
     with open(json_path_from, 'r') as load_from:
         load_from_dict = json.load(load_from)
-        translator = Translator()  
+        translator = Translator()
         for key_from in load_from_dict:
             result = translator.translate(
                 load_from_dict[key_from], dest=dest_language, src=src_language)
-            print('[ ' + src_language + ' ]: ' + load_from_dict[key_from] + '-----> [ ' + dest_language + ' ]: ' + result.text)
+            # print(result)
+            print('[ ' + src_language + ' ]: ' + load_from_dict[key_from] +
+                  '-----> [ ' + dest_language + ' ]: ' + result.text)
             output_dic[key_from] = result.text
             time.sleep(0.5)
-        print('result = ')
-        print(output_dic)
-        with open('output.json', 'w+') as f:
-            json.dump(output_dic, f)
+        with open(file='output.json', mode='w+') as f:
+            json.dump(output_dic, f, ensure_ascii=False)
 
 
 def run(json_path_from, src_language, dest_language):
